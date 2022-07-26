@@ -1,0 +1,22 @@
+---
+
+- name: Create a new databse for the wordpress
+  mysql_db:
+    name: wordpress
+    state: present
+
+- name: Removing anonymours user accounts
+  mysql_user:
+    name: ''
+    host_all: yes
+    state: absent
+
+
+- name: Creating a user with all grant premission to the database wordpress
+  mysql_user:
+    name: wordpress
+    password: wordpress
+    priv: 'wordpress.*:ALL,GRANT'
+    state: present
+  notify:
+    - Restart mysql service

@@ -1,0 +1,9 @@
+---
+- name: We are going to configure wordpress ansible using role
+  become: true
+  hosts: webserver
+  roles:
+    - apache
+    - mysql
+    - wordpress
+

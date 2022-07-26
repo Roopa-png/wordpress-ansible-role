@@ -1,0 +1,28 @@
+---
+- name: Download and unpack the latest version of the wordpress
+  unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: /srv/www
+    remote_src: true
+  tags: [wordpress]
+
+- name: Confguring wordpress with the databse
+  copy:
+    src: /srv/www/wordpress/wp-config-sample.php
+    dest: /srv/www/wordpress/wp-config.php
+    remote_src: yes
+    group: www-data
+    owner: www-data
+    mode: "0644"
+
+- name: updating the databse
+  shell: sed -i 's/database_name_here/wordpress/' /srv/www/wordpress/wp-config.php
+
+- name: updating the username
+  shell: sed -i 's/username_here/wordpress/' /srv/www/wordpress/wp-config.php
+
+- name: updating the password
+  shell: sed -i 's/password_here/wordpress/' /srv/www/wordpress/wp-config.php
+
+
+
